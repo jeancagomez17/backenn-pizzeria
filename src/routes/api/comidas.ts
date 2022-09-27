@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import  ComidasRepo  from "../../repository/ComidasRepo";
 import  ComidasController  from "../../controller/comidasController";
-import comidasController from "../../controller/comidasController";
+// import comidasController from "../../controller/comidasController";
 
 const router:Router = Router();
 
@@ -17,11 +17,7 @@ router
     // res.send(newData)
 // })
 
-.delete('/:id', async(req:Request, res:Response)=> {
-    const id = parseInt(req.params.id);
-    const data = await  ComidasRepo.deleted(id);
-    res.send('Se elimino correctamente el id: ' + id)
-})
+.delete('/:id', ComidasController.deleted)
 
 .post('/', async (req:Request, res:Response)=>{
     const dato = await ComidasRepo.createData(req.body)

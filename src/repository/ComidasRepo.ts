@@ -4,6 +4,7 @@ const prisma = new PrismaClient();
 
 interface IComidas {
   id_comidas:number,
+  image_food:string,
   name_food:string,
   description:string,
   price:number,
@@ -27,7 +28,7 @@ interface IComidas {
     return comidas as Promise<comidas>;
   }
 
-  async oneData(id:number): Promise<comidas | null> {
+  async oneData(id:number): Promise<comidas | {}> {
     const comida:any = await prisma.comidas.findUnique({
       include: {
         categoria: {
@@ -44,11 +45,12 @@ interface IComidas {
   }
 
   async createData(data: any): Promise<comidas>{
-    const {id_comidas, name_food, description,price, id_categoria }:IComidas = data;
+    const {id_comidas, name_food,image_food,  description,price, id_categoria }:IComidas = data;
     const comidas:any = await prisma.comidas.create({
         data:{
-            id_comidas, 
-            name_food, 
+            id_comidas,   
+            name_food,
+            image_food,  
             description,
             price, 
             id_categoria

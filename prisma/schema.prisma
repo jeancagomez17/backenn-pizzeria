@@ -8,13 +8,14 @@ datasource db {
 }
 
 model categoria {
-  id_categoria   Int       @id @default(autoincrement())
+  id_categoria   Int       @id
   name_categoria String    @db.VarChar(30)
   comidas        comidas[]
 }
 
 model comidas {
-  id_comidas    Int             @id @default(autoincrement())
+  id_comidas    Int             @id
+  image_food    String          @db.VarChar(255)
   name_food     String          @db.VarChar(30)
   description   String          @db.VarChar(80)
   price         Int
@@ -26,36 +27,36 @@ model comidas {
 }
 
 model comidas_orden {
-  id_comidas_orden Int      @id
-  id_comidas       Int?
-  id_orden         Int?
-  comidas          comidas? @relation(fields: [id_comidas], references: [id_comidas], onDelete: Restrict, onUpdate: Restrict, map: "comidas_orden_ibfk_1")
-  orden            orden?   @relation(fields: [id_orden], references: [id_orden], onDelete: Restrict, onUpdate: Restrict, map: "comidas_orden_ibfk_2")
+  id_comidas_orden Int     @id
+  id_comidas       Int
+  id_orden         Int
+  comidas          comidas @relation(fields: [id_comidas], references: [id_comidas], onUpdate: Restrict, map: "comidas_orden_ibfk_1")
+  orden            orden   @relation(fields: [id_orden], references: [id_orden], onUpdate: Restrict, map: "comidas_orden_ibfk_2")
 
   @@index([id_comidas], map: "id_comidas")
   @@index([id_orden], map: "id_orden")
 }
 
 model delivery {
-  id_delivery   Int       @id @default(autoincrement())
+  id_delivery   Int       @id
   name_delivery String    @db.VarChar(30)
   pedidos       pedidos[]
 }
 
 model orden {
-  id_orden      Int             @id @default(autoincrement())
+  id_orden      Int             @id
   date          DateTime        @db.Date
   comidas_orden comidas_orden[]
   pedidos       pedidos[]
 }
 
 model pedidos {
-  id_pedidos  Int       @id @default(autoincrement())
+  id_pedidos  Int      @id
   total_price Int
-  id_orden    Int?
-  id_delivery Int?
-  orden       orden?    @relation(fields: [id_orden], references: [id_orden], onDelete: Restrict, onUpdate: Restrict, map: "pedidos_ibfk_1")
-  delivery    delivery? @relation(fields: [id_delivery], references: [id_delivery], onDelete: Restrict, onUpdate: Restrict, map: "pedidos_ibfk_2")
+  id_orden    Int
+  id_delivery Int
+  orden       orden    @relation(fields: [id_orden], references: [id_orden], onUpdate: Restrict, map: "pedidos_ibfk_1")
+  delivery    delivery @relation(fields: [id_delivery], references: [id_delivery], onUpdate: Restrict, map: "pedidos_ibfk_2")
 
   @@index([id_delivery], map: "id_delivery")
   @@index([id_orden], map: "id_orden")
