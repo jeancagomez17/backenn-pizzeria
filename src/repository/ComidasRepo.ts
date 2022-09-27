@@ -9,7 +9,6 @@ interface IComidas {
   description:string,
   price:number,
   id_categoria:number
-
 }
 
  class ComidasRepo  {
@@ -45,7 +44,7 @@ interface IComidas {
   }
 
   async createData(data: any): Promise<comidas>{
-    const {id_comidas, name_food,image_food,  description,price, id_categoria }:IComidas = data;
+    const {id_comidas, name_food,image_food,  description, price, id_categoria }:IComidas = data;
     const comidas:any = await prisma.comidas.create({
         data:{
             id_comidas,   
