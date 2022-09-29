@@ -46,6 +46,10 @@ import validates from "../helpers/validates";
         const deleteData = await ComidasRepo.deleted(id)
         return res.send(deleteData)
     }
+    async addData(req: Request, res: Response){
+        const dato = await ComidasRepo.createData(req.body)
+        return res.send(dato)
+    }
 
 }
 

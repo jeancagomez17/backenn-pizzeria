@@ -8,20 +8,9 @@ const router:Router = Router();
 router
 .get('/', ComidasController.getAllData)
 .get('/:id', ComidasController.getOneData)
-
+.post('/', ComidasController.addData)
 .put('/:id', ComidasController.updateData)
-//async (req:Request, res:Response) =>{
-    // const id = parseInt(req.params.id);
-    // const updateData = req.body
-    // const newData = await ComidasRepo.updateData(id, updateData)
-    // res.send(newData)
-// })
-
 .delete('/:id', ComidasController.deleted)
 
-.post('/', async (req:Request, res:Response)=>{
-    const dato = await ComidasRepo.createData(req.body)
-     res.send(dato)
- })
 
 export default router
